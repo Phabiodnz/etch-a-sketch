@@ -2,47 +2,41 @@ const redefineButtonJS = document.querySelector('.redefine-button');
 const updateButtonJS = document.querySelector('.update-button');
 const gridContainerJS = document.querySelector('.grid-container');
 
-let userImput = prompt('Choose your grid size (1~80):');
-
-function gridCreation(divQuantity){
-    if ((divQuantity >= 1 && divQuantity <= 80)){
+function createGrid(divQuantity) {
+    if (divQuantity >= 1 && divQuantity <= 100) {
         gridContainerJS.innerHTML = '';
-        let quantityCalculation = divQuantity ** 2;
-        let blockWidthHeight = Math.floor(960/ divQuantity);
+        const blockSize = 1000 / divQuantity;
 
-        for (let i = 0; i < quantityCalculation; i++) {
-            let newDiv = document.createElement("div");
+        for (let i = 0; i < divQuantity * divQuantity; i++) {
+            const newDiv = document.createElement("div");
             newDiv.classList.add("grid-blocks");
-            newDiv.addEventListener('mouseover', (evento) =>{
+            newDiv.style.width = blockSize + "px";
+            newDiv.style.height = blockSize + "px";
+            newDiv.addEventListener('mouseover', (event) => {
                 newDiv.style.backgroundColor = 'black';
-            });     
+            });
             gridContainerJS.appendChild(newDiv);
         }
-        
-        let divConfig = document.querySelectorAll(".grid-blocks");
-        divConfig.forEach(function(div) {
-            div.style.width = blockWidthHeight + "px";
-            div.style.height = blockWidthHeight + "px";
-        });
-    }else{
-        alert("Invalid Imput");
+    } else {
+        alert("Invalid input");
     }
 }
 
-updateButtonJS.addEventListener('click', updateGrid);
-
+// Função para atualizar a grid
 function updateGrid() {
-    let inputUpdate = prompt('Choose your grid size (1~80):');
-    gridCreation(Number(inputUpdate));
+    const inputUpdate = prompt('Choose your grid size (1~80):');
+    createGrid(Number(inputUpdate));
 }
 
+// Adicionar evento de clique ao botão de atualização
+updateButtonJS.addEventListener('click', updateGrid);
 
-redefineButtonJS.addEventListener("click", function() {
-    let redefineDivs = document.querySelectorAll(".grid-blocks");
-    redefineDivs.forEach(function(div) {
-        div.style.backgroundColor = 'white';
+// Função para redefinir as cores dos blocos
+function redefineColors() {
+    const gridBlocks = document.querySelectorAll(".grid-blocks");
+    gridBlocks.forEach(function(block) {
+        block.style.backgroundColor = 'white';
     });
-});
+}
 
-gridCreation(userImput);
-console.log(updateButtonJS);
+redefineButtonJS.addEventListener("click", redefineColors);
