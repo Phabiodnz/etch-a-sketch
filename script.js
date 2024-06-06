@@ -22,21 +22,20 @@ function createGrid(divQuantity) {
     }
 }
 
-// Função para atualizar a grid
 function updateGrid() {
     const inputUpdate = prompt('Choose your grid size (1~80):');
     createGrid(Number(inputUpdate));
 }
 
-// Adicionar evento de clique ao botão de atualização
 updateButtonJS.addEventListener('click', updateGrid);
 
-// Função para redefinir as cores dos blocos
-function redefineColors() {
+function redefineGrid() {
     const gridBlocks = document.querySelectorAll(".grid-blocks");
     gridBlocks.forEach(function(block) {
-        block.style.backgroundColor = 'white';
+        block.style.backgroundColor = '#FFFFFF';
     });
 }
 
-redefineButtonJS.addEventListener("click", redefineColors);
+redefineButtonJS.addEventListener("click", redefineGrid);
+
+createGrid(prompt("Choose your grid size (1-100):"));
